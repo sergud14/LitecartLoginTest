@@ -13,7 +13,7 @@ namespace LitecartLoginTest
         public void CheckStickers()
         {
             var mainPage = new MainPage(driver);
-            Assert.IsTrue(mainPage.CheckStickers(11));
+            Assert.IsTrue(mainPage.CheckStickers());
         }
 
         [Test, Order(3)]
