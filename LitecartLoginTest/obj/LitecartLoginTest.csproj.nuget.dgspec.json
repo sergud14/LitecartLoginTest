@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (3)\\LitecartLoginTest\\LitecartLoginTest.csproj": {}
+    "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (4)\\LitecartLoginTest\\LitecartLoginTest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (3)\\LitecartLoginTest\\LitecartLoginTest.csproj": {
+    "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (4)\\LitecartLoginTest\\LitecartLoginTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (3)\\LitecartLoginTest\\LitecartLoginTest.csproj",
+        "projectUniqueName": "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (4)\\LitecartLoginTest\\LitecartLoginTest.csproj",
         "projectName": "LitecartLoginTest",
-        "projectPath": "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (3)\\LitecartLoginTest\\LitecartLoginTest.csproj",
+        "projectPath": "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (4)\\LitecartLoginTest\\LitecartLoginTest.csproj",
         "packagesPath": "C:\\Users\\sergu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (3)\\LitecartLoginTest\\obj\\",
+        "outputPath": "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (4)\\LitecartLoginTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\sergu\\AppData\\Roaming\\NuGet\\NuGet.Config",

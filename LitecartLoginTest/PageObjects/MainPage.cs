@@ -4,7 +4,7 @@
     {
         private readonly By headerCategories = By.XPath("//h3[text()='Categories']");
         private readonly By hrefRubberDucks = By.XPath("(//a[text()='Rubber Ducks'])[2]");
-        private readonly By liProductItem = By.XPath("//li[@class='product column shadow hover-light']");
+        private readonly By liProductItem = By.XPath("//li[contains(@class,'product')]");
         //private readonly By sticker = By.XPath(".//a[@title='Red Duck'][@class='link']");
         private readonly By sticker = By.XPath(".//div[contains(@class,'sticker')]");
 
@@ -19,19 +19,6 @@
             return (webDriverWait.Until(ExpectedConditions.ElementIsVisible(headerCategories))!=null);
         }
 
-        public RubberDucksPage OpenRubberDucksPage()
-        {
-            ClickButton(hrefRubberDucks);
-            var rubberDucksPage = new RubberDucksPage(driver);
-            if (rubberDucksPage.IsLoaded())
-            {
-                return rubberDucksPage;
-            }
-            else
-            {
-                return null;
-            }
-        }
 
         public bool CheckStickers()
         {

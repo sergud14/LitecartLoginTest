@@ -32,6 +32,32 @@
             ClickButton(buttonLogin);
         }
 
+
+        public AdminPage OpenAdminPage(string login,string password)
+        {
+            try
+            {
+                InsertUsername(login);
+                InsertPassword(password);
+                Login();
+
+                var adminPage = new AdminPage(driver);
+                if (adminPage.IsLoaded())
+                {
+                    return adminPage;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
         public MainPage EnterWithoutLogin()
         {
             ClickButton(imgLitecart);
