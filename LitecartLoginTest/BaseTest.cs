@@ -10,11 +10,11 @@
             var options = new ChromeOptions();
             options.AddArgument("--start-maximized");
             driver = new ChromeDriver();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
         }
 
         [OneTimeTearDown]
-        public void Test1()
+        public void TearDown()
         {
             driver.Quit();
             driver = null;
