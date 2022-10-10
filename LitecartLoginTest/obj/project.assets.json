@@ -1396,11 +1396,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (5)\\LitecartLoginTest\\LitecartLoginTest.csproj",
+      "projectUniqueName": "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (11)\\LitecartLoginTest\\LitecartLoginTest.csproj",
       "projectName": "LitecartLoginTest",
-      "projectPath": "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (5)\\LitecartLoginTest\\LitecartLoginTest.csproj",
+      "projectPath": "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (11)\\LitecartLoginTest\\LitecartLoginTest.csproj",
       "packagesPath": "C:\\Users\\sergu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (5)\\LitecartLoginTest\\obj\\",
+      "outputPath": "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (11)\\LitecartLoginTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\sergu\\AppData\\Roaming\\NuGet\\NuGet.Config",
