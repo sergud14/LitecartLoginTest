@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "loVO1YIB/sDZfbucanUDzU8OShv38nKwgs22DLB5OS7g10lXJuSMmPzLMAjNgLiUdGL+ml3zifQtu0WyGCXs5A==",
+  "dgSpecHash": "fAWRpJLibVndYOV+cx+nZwIDFlxUrH4SRo/129OLc2oR9Wtx04lm+LLUW2C4ejtAJY/Y5ZOZMGBc4KkvO9Xh4g==",
   "success": true,
   "projectFilePath": "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (11)\\LitecartLoginTest\\LitecartLoginTest.csproj",
   "expectedPackageFiles": [
@@ -20,6 +20,8 @@
     "C:\\Users\\sergu\\.nuget\\packages\\selenium.support\\4.4.0\\selenium.support.4.4.0.nupkg.sha512",
     "C:\\Users\\sergu\\.nuget\\packages\\selenium.webdriver\\4.4.0\\selenium.webdriver.4.4.0.nupkg.sha512",
     "C:\\Users\\sergu\\.nuget\\packages\\selenium.webdriver.chromedriver\\106.0.5249.6100\\selenium.webdriver.chromedriver.106.0.5249.6100.nupkg.sha512",
+    "C:\\Users\\sergu\\.nuget\\packages\\selenium.webdriver.geckodriver\\0.31.0.1\\selenium.webdriver.geckodriver.0.31.0.1.nupkg.sha512",
+    "C:\\Users\\sergu\\.nuget\\packages\\selenium.webdriver.iedriver\\4.5.0\\selenium.webdriver.iedriver.4.5.0.nupkg.sha512",
     "C:\\Users\\sergu\\.nuget\\packages\\system.reflection.metadata\\1.6.0\\system.reflection.metadata.1.6.0.nupkg.sha512"
   ],
   "logs": []

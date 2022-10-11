@@ -395,6 +395,18 @@
           "build/Selenium.WebDriver.ChromeDriver.targets": {}
         }
       },
+      "Selenium.WebDriver.GeckoDriver/0.31.0.1": {
+        "type": "package",
+        "build": {
+          "build/Selenium.WebDriver.GeckoDriver.targets": {}
+        }
+      },
+      "Selenium.WebDriver.IEDriver/4.5.0": {
+        "type": "package",
+        "build": {
+          "build/Selenium.WebDriver.IEDriver.targets": {}
+        }
+      },
       "System.Reflection.Metadata/1.6.0": {
         "type": "package",
         "compile": {
@@ -1355,6 +1367,42 @@
         "selenium.webdriver.chromedriver.nuspec"
       ]
     },
+    "Selenium.WebDriver.GeckoDriver/0.31.0.1": {
+      "sha512": "39nhn8qjgssE/Q/G23m+X9AiVcK71z8hRYmN3yeCVV9LZ9Y/E5s8eAwi6h52KLEnOxqcq23hsV4D4Hu2GYxRJQ==",
+      "type": "package",
+      "path": "selenium.webdriver.geckodriver/0.31.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "build/DefinePropertiesGeckoDriver.targets",
+        "build/Selenium.WebDriver.GeckoDriver.targets",
+        "driver/linux64/geckodriver",
+        "driver/mac64/geckodriver",
+        "driver/mac64arm/geckodriver",
+        "driver/win32/geckodriver.exe",
+        "driver/win64/geckodriver.exe",
+        "nupkg-icon.png",
+        "selenium.webdriver.geckodriver.0.31.0.1.nupkg.sha512",
+        "selenium.webdriver.geckodriver.nuspec"
+      ]
+    },
+    "Selenium.WebDriver.IEDriver/4.5.0": {
+      "sha512": "3Bm9PXByViVe+Hlgpto7YWh8tDEDYdAOh0NhPIs/M4LLJfrQe+qbKNSqF+7BN4BVJtIQlExs0UcRmLOHnYIMmQ==",
+      "type": "package",
+      "path": "selenium.webdriver.iedriver/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "build/DefinePropertiesIEDriver.targets",
+        "build/Selenium.WebDriver.IEDriver.targets",
+        "driver/IEDriverServer.exe",
+        "nupkg-icon.png",
+        "selenium.webdriver.iedriver.4.5.0.nupkg.sha512",
+        "selenium.webdriver.iedriver.nuspec"
+      ]
+    },
     "System.Reflection.Metadata/1.6.0": {
       "sha512": "COC1aiAJjCoA5GBF+QKL2uLqEBew4JsCkQmoHKbN3TlOZKa2fKLz5CpiRQKDz0RsAOEGsVKqOD5bomsXq/4STQ==",
       "type": "package",
@@ -1387,6 +1435,8 @@
       "Selenium.Support >= 4.4.0",
       "Selenium.WebDriver >= 4.4.0",
       "Selenium.WebDriver.ChromeDriver >= 106.0.5249.6100",
+      "Selenium.WebDriver.GeckoDriver >= 0.31.0.1",
+      "Selenium.WebDriver.IEDriver >= 4.5.0",
       "coverlet.collector >= 3.1.2"
     ]
   },
@@ -1460,6 +1510,14 @@
           "Selenium.WebDriver.ChromeDriver": {
             "target": "Package",
             "version": "[106.0.5249.6100, )"
+          },
+          "Selenium.WebDriver.GeckoDriver": {
+            "target": "Package",
+            "version": "[0.31.0.1, )"
+          },
+          "Selenium.WebDriver.IEDriver": {
+            "target": "Package",
+            "version": "[4.5.0, )"
           },
           "coverlet.collector": {
             "target": "Package",

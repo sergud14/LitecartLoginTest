@@ -44,5 +44,14 @@ namespace LitecartLoginTest
             adminPage.GoToGeoZonesTab();
             Assert.IsTrue(adminPage.CheckGeoZonesSort());
         }
+
+        [Test, Order(6)]
+        public void CheckGoodsPage()
+        {
+            var loginPage = new LoginPage(driver);
+            var mainPage = loginPage.EnterWithoutLogin();
+            Assert.IsTrue(mainPage.CheckAttributes());
+        }
+
     }
 }

@@ -72,6 +72,14 @@
               "target": "Package",
               "version": "[106.0.5249.6100, )"
             },
+            "Selenium.WebDriver.GeckoDriver": {
+              "target": "Package",
+              "version": "[0.31.0.1, )"
+            },
+            "Selenium.WebDriver.IEDriver": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            },
             "coverlet.collector": {
               "target": "Package",
               "version": "[3.1.2, )"
