@@ -35,5 +35,14 @@ namespace LitecartLoginTest
             adminPage.GoToCountriesTab();
             Assert.IsTrue(adminPage.CheckZonesSort());
         }
+
+        [Test, Order(5)]
+        public void CheckGeoZones()
+        {
+            var loginPage = new LoginPage(driver);
+            var adminPage = loginPage.OpenAdminPage("admin", "admin");
+            adminPage.GoToGeoZonesTab();
+            Assert.IsTrue(adminPage.CheckGeoZonesSort());
+        }
     }
 }

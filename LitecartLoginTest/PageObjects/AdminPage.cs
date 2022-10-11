@@ -6,6 +6,7 @@
         private readonly By tabName = By.XPath("//li");
         private readonly By tabHeader = By.XPath("//h1");
         private readonly By countriesTab = By.XPath("//span[text()='Countries']");
+        private readonly By geoZonesTab = By.XPath("//span[text()='Geo Zones']");
 
         public AdminPage(IWebDriver driver) : base(driver)
         {
@@ -93,6 +94,7 @@
                 {
                     array[i] = driver.FindElement(By.XPath("(" + tableColumn + ")[" + (i + 1) + "]")).GetAttribute(attribute);
                     arraySorted[i] = array[i];
+                    string ss = array[i];
                 }
 
                 Array.Sort(arraySorted);
@@ -170,11 +172,57 @@
             return result;
         }
 
+        public bool CheckGeoZonesSort()
+        {
+            bool result = false;
+            var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            try
+            {
+                var rows = driver.FindElements(By.XPath("//*[@class='row']//td[3]/a"));
+                List<By> rowCountries = new List<By>();
+
+                for (int i = 0; i < rows.Count; i++)
+                {
+                    rowCountries.Add(By.XPath("(//*[@class='row']//td[3])[" + (i + 1) + "]/a"));
+                }
+
+                int j = 0;
+                foreach (By by in rowCountries)
+                {
+                    webDriverWait.Until(ExpectedConditions.ElementIsVisible(by)).Click();
+                    webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[text()=' Edit Geo Zone']")));
+                    if (CheckSort("//select[contains(@name,'zone_code')]/option[@selected='selected']", "textContent") == false)
+                    {
+                        j++;
+                    }
+                    webDriverWait.Until(ExpectedConditions.ElementIsVisible(geoZonesTab)).Click();
+                    webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[text()=' Geo Zones']")));
+                }
+
+                if (j == 0)
+                {
+                    result = true;
+                }
+            }
+            catch
+            {
+                result = false;
+            }
+            return result;
+        }
+
         public void GoToCountriesTab()
         {
             var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
             webDriverWait.Until(ExpectedConditions.ElementIsVisible(countriesTab)).Click();
             webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[text()=' Countries']")));
+        }
+
+        public void GoToGeoZonesTab()
+        {
+            var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(geoZonesTab)).Click();
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[text()=' Geo Zones']")));
         }
 
         public bool IsLoaded()
