@@ -7,6 +7,7 @@
         private readonly By tabHeader = By.XPath("//h1");
         private readonly By countriesTab = By.XPath("//span[text()='Countries']");
         private readonly By geoZonesTab = By.XPath("//span[text()='Geo Zones']");
+        private readonly By catalogTab = By.XPath("//span[text()='Catalog']");
 
         public AdminPage(IWebDriver driver) : base(driver)
         {
@@ -80,6 +81,19 @@
             }
             return result;
         }
+
+        public bool CheckNewProduct(Products product)
+        {
+            bool result = false;
+            GoToCatalogTab();
+            var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            if (webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//tr[@class='row']//td//a[not(contains(text(),'Root'))][not(contains(@title,'Edit'))][text()='" + product.Name + "']"))) != null)
+            {
+                result = true;
+            }
+            return result;
+        }
+
         private bool CheckSort(string tableColumn, string attribute)
         {
             bool result = false;
@@ -218,6 +232,13 @@
             webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[text()=' Countries']")));
         }
 
+        public void GoToCatalogTab()
+        {
+            var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(catalogTab)).Click();
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[text()=' Catalog']")));
+        }
+
         public void GoToGeoZonesTab()
         {
             var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
@@ -230,5 +251,92 @@
             var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
             return (webDriverWait.Until(ExpectedConditions.ElementIsVisible(imgMyStore)) != null);
         }
+
+
+        public void AddNewProduct(Products product)
+        {
+            GoToCatalogTab();
+            var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[text()=' Add New Product']"))).Click();
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[text()='General']")));
+            //Вкладка General
+            driver.FindElement(By.XPath("//label[text()=' "+product.Status+"']")).Click();
+            driver.FindElement(By.Name("name[en]")).Click();
+            driver.FindElement(By.Name("name[en]")).Clear();
+            driver.FindElement(By.Name("name[en]")).SendKeys(product.Name);
+            driver.FindElement(By.Name("code")).Click();
+            driver.FindElement(By.Name("code")).Clear();
+            driver.FindElement(By.Name("code")).SendKeys(product.Code);
+            driver.FindElement(By.XPath("//input[@type='checkbox'][@data-name='"+product.Categories+"']")).Click();
+            driver.FindElement(By.XPath("//td[text()='" + product.Gender + "']//preceding-sibling::td//input")).Click();
+            driver.FindElement(By.Name("quantity")).Click();
+            driver.FindElement(By.Name("quantity")).Clear();
+            driver.FindElement(By.Name("quantity")).SendKeys(product.Quantity);
+            SelectElement quantityUnit = new SelectElement(driver.FindElement(By.XPath("//select[@name='quantity_unit_id']")));
+            quantityUnit.SelectByText(product.QuantityUnit);
+            SelectElement deliveryStatus = new SelectElement(driver.FindElement(By.XPath("//select[@name='delivery_status_id']")));
+            deliveryStatus.SelectByText(product.DeliveryStatus);
+            SelectElement soldoutStatus = new SelectElement(driver.FindElement(By.XPath("//select[@name='sold_out_status_id']")));
+            soldoutStatus.SelectByText(product.SoldOutStatus);
+            driver.FindElement(By.XPath("//input[@type='file']")).SendKeys(product.Photo);
+            SetDatepicker(driver, "[name=date_valid_from]", product.DateValidFrom);
+            SetDatepicker(driver, "[name=date_valid_to]", product.DateValidTo);
+            //Вкладка Information
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[text()='Information']"))).Click();
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//strong[text()='Manufacturer']")));
+            new SelectElement(driver.FindElement(By.Name("manufacturer_id"))).SelectByText(product.Manufacturer);
+            new SelectElement(driver.FindElement(By.Name("supplier_id"))).SelectByText(product.Supplier);
+            driver.FindElement(By.Name("keywords")).Click();
+            driver.FindElement(By.Name("keywords")).Clear();
+            driver.FindElement(By.Name("keywords")).SendKeys(product.Keywords);
+            driver.FindElement(By.Name("short_description[en]")).Click();
+            driver.FindElement(By.Name("short_description[en]")).Clear();
+            driver.FindElement(By.Name("short_description[en]")).SendKeys(product.ShortDescription);
+            driver.FindElement(By.Name("description[en]")).Click();
+            driver.FindElement(By.Name("description[en]")).Clear();
+            driver.FindElement(By.Name("description[en]")).SendKeys(product.Description);
+            driver.FindElement(By.Name("head_title[en]")).Click();
+            driver.FindElement(By.Name("head_title[en]")).Clear();
+            driver.FindElement(By.Name("head_title[en]")).SendKeys(product.HeadTitle);
+            driver.FindElement(By.Name("meta_description[en]")).Click();
+            driver.FindElement(By.Name("meta_description[en]")).Clear();
+            driver.FindElement(By.Name("meta_description[en]")).SendKeys(product.MetaDescription);
+            //Вкладка Price
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[text()='Prices']"))).Click();
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h2[text()='Prices']")));
+            driver.FindElement(By.Name("purchase_price")).Click();
+            driver.FindElement(By.Name("purchase_price")).Clear();
+            driver.FindElement(By.Name("purchase_price")).SendKeys(product.PurchasePrice);
+            new SelectElement(driver.FindElement(By.Name("purchase_price_currency_code"))).SelectByText(product.PurchasePriceCurrency);
+            driver.FindElement(By.Name("prices[USD]")).Click();
+            driver.FindElement(By.Name("prices[USD]")).Clear();
+            driver.FindElement(By.Name("prices[USD]")).SendKeys(product.PriceUSD);
+            driver.FindElement(By.Name("prices[EUR]")).Click();
+            driver.FindElement(By.Name("prices[EUR]")).Clear();
+            driver.FindElement(By.Name("prices[EUR]")).SendKeys(product.PriceEUR);
+            driver.FindElement(By.Name("gross_prices[USD]")).Click();
+            driver.FindElement(By.Name("gross_prices[USD]")).Clear();
+            driver.FindElement(By.Name("gross_prices[USD]")).SendKeys(product.PriceInclUSD);
+            driver.FindElement(By.Name("gross_prices[EUR]")).Click();
+            driver.FindElement(By.Name("gross_prices[EUR]")).Clear();
+            driver.FindElement(By.Name("gross_prices[EUR]")).SendKeys(product.PriceInclEUR);
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//button[@name='save']"))).Click();
+        }
+
+        public void SetDatepicker(IWebDriver driver, string cssSelector, string date)
+        {
+            new WebDriverWait(driver, TimeSpan.FromSeconds(30)).Until<bool>(
+                d => driver.FindElement(By.CssSelector(cssSelector)).Displayed);
+            driver.FindElement(By.CssSelector(cssSelector)).SendKeys(date);
+            driver.FindElement(By.CssSelector("body")).Click();
+        }
+
+    //    public void SetDatepicker(IWebDriver driver, string cssSelector, string date)
+    //    {
+    ////        new WebDriverWait(driver, TimeSpan.FromSeconds(30)).Until<bool>(
+    ////d => driver.FindElement(By.CssSelector(cssSelector)).Displayed);
+    ////        (driver as IJavaScriptExecutor).ExecuteScript(
+    ////            String.Format("$('{0}').datepicker('setDate', '{1}')", cssSelector, date));
+    //    }
     }
 }

@@ -189,8 +189,6 @@
         }
 
 
-
-
         public bool CheckStickers()
         {
             try
@@ -219,5 +217,84 @@
                 return false;
             }
         }
+        public void GoToMainPage()
+        {
+            driver.Navigate().GoToUrl(@"http://localhost/litecart/en/");
+        }
+
+        public void GoToCreateAccountPage()
+        {
+            var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.LinkText("New customers click here"))).Click();
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[text()='Create Account']")));
+        }
+
+        public void Logout()
+        {
+            var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("(//a[text()='Logout'])[1]"))).Click();
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.Name("login")));
+        }
+
+        public void LogIn(Customers customer)
+        {
+            GoToMainPage();
+            var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            driver.FindElement(By.Name("email")).Click();
+            driver.FindElement(By.Name("email")).Clear();
+            driver.FindElement(By.Name("email")).SendKeys(customer.Email);
+            driver.FindElement(By.Name("password")).Click();
+            driver.FindElement(By.Name("password")).Clear();
+            driver.FindElement(By.Name("password")).SendKeys(customer.Password);
+            driver.FindElement(By.Name("login")).Click();
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("(//a[text()='Logout'])[1]")));
+        }
+
+        public void AddNewCustomer(Customers customer)
+        {
+            GoToCreateAccountPage();
+            driver.FindElement(By.Name("tax_id")).Click();
+            driver.FindElement(By.Name("tax_id")).Clear();
+            driver.FindElement(By.Name("tax_id")).SendKeys(customer.TaxId);
+            driver.FindElement(By.Name("company")).Click();
+            driver.FindElement(By.Name("company")).Clear();
+            driver.FindElement(By.Name("company")).SendKeys(customer.Company);
+            driver.FindElement(By.Name("firstname")).Click();
+            driver.FindElement(By.Name("firstname")).Clear();
+            driver.FindElement(By.Name("firstname")).SendKeys(customer.FirstName);
+            driver.FindElement(By.Name("lastname")).Click();
+            driver.FindElement(By.Name("lastname")).Clear();
+            driver.FindElement(By.Name("lastname")).SendKeys(customer.LastName);
+            driver.FindElement(By.Name("address1")).Click();
+            driver.FindElement(By.Name("address1")).Clear();
+            driver.FindElement(By.Name("address1")).SendKeys(customer.Address1);
+            driver.FindElement(By.Name("address2")).Click();
+            driver.FindElement(By.Name("address2")).Clear();
+            driver.FindElement(By.Name("address2")).SendKeys(customer.Address2);
+            driver.FindElement(By.Name("postcode")).Click();
+            driver.FindElement(By.Name("postcode")).Clear();
+            driver.FindElement(By.Name("postcode")).SendKeys(customer.Postcode);
+            driver.FindElement(By.Name("city")).Click();
+            driver.FindElement(By.Name("city")).Clear();
+            driver.FindElement(By.Name("city")).SendKeys(customer.City);
+            SelectElement country = new SelectElement(driver.FindElement(By.XPath("//select[@name='country_code']")));
+            country.SelectByText(customer.Country);
+            SelectElement zone = new SelectElement(driver.FindElement(By.XPath("//select[@name='zone_code']")));
+            zone.SelectByText(customer.Zone);
+            driver.FindElement(By.Name("email")).Click();
+            driver.FindElement(By.Name("email")).Clear();
+            driver.FindElement(By.Name("email")).SendKeys(customer.Email);
+            driver.FindElement(By.Name("phone")).Click();
+            driver.FindElement(By.Name("phone")).Clear();
+            driver.FindElement(By.Name("phone")).SendKeys(customer.Phone);
+            driver.FindElement(By.Name("password")).Click();
+            driver.FindElement(By.Name("password")).Clear();
+            driver.FindElement(By.Name("password")).SendKeys(customer.Password);
+            driver.FindElement(By.Name("confirmed_password")).Click();
+            driver.FindElement(By.Name("confirmed_password")).Clear();
+            driver.FindElement(By.Name("confirmed_password")).SendKeys(customer.Password);
+            driver.FindElement(By.Name("create_account")).Click();
+        }
+
     }
 }

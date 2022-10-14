@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fAWRpJLibVndYOV+cx+nZwIDFlxUrH4SRo/129OLc2oR9Wtx04lm+LLUW2C4ejtAJY/Y5ZOZMGBc4KkvO9Xh4g==",
+  "dgSpecHash": "uYgvpZ5W/eYz4cL4g1iZTnCtlZH66wDJiJirYK96QnNSa4o37Cp8aU6yZqKqm+PT8TJMuAle1srJ0qx+jJpAPQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (11)\\LitecartLoginTest\\LitecartLoginTest.csproj",
+  "projectFilePath": "C:\\Users\\sergu\\OneDrive\\Рабочий стол\\Новая папка (12)\\LitecartLoginTest\\LitecartLoginTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sergu\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\sergu\\.nuget\\packages\\dotnetseleniumextras.waithelpers\\3.11.0\\dotnetseleniumextras.waithelpers.3.11.0.nupkg.sha512",

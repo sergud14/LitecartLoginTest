@@ -53,5 +53,28 @@ namespace LitecartLoginTest
             Assert.IsTrue(mainPage.CheckAttributes());
         }
 
+        [Test, Order(7)]
+        public void AddNewUser()
+        {
+            var loginPage = new LoginPage(driver);
+            var mainPage = loginPage.EnterWithoutLogin();
+            Customers customer = new Customers();
+            customer.FirstName = "Jack";
+            customer.LastName = "Jackson";
+            mainPage.AddNewCustomer(customer);
+            mainPage.Logout();
+            mainPage.LogIn(customer);
+            mainPage.Logout();
+        }
+
+        [Test, Order(8)]
+        public void AddNewProduct()
+        {
+            var loginPage = new LoginPage(driver);
+            var adminPage = loginPage.OpenAdminPage("admin", "admin");
+            Products product = new Products();
+            adminPage.AddNewProduct(product);
+            Assert.IsTrue(adminPage.CheckNewProduct(product));
+        }
     }
 }

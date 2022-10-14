@@ -18,7 +18,7 @@
             var options = new ChromeOptions();
             options.AddArgument("--start-maximized");
             driver = new ChromeDriver();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
         }
 
         [TearDown]
