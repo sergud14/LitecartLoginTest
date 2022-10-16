@@ -59,8 +59,8 @@ namespace LitecartLoginTest
             var loginPage = new LoginPage(driver);
             var mainPage = loginPage.EnterWithoutLogin();
             Customers customer = new Customers();
-            customer.FirstName = "Jack";
-            customer.LastName = "Jackson";
+            customer.FirstName = "Jack1";
+            customer.LastName = "Jackson1";
             mainPage.AddNewCustomer(customer);
             mainPage.Logout();
             mainPage.LogIn(customer);
@@ -68,13 +68,12 @@ namespace LitecartLoginTest
         }
 
         [Test, Order(8)]
-        public void AddNewProduct()
+        public void AddAndDeleteProductsFromCart()
         {
             var loginPage = new LoginPage(driver);
-            var adminPage = loginPage.OpenAdminPage("admin", "admin");
-            Products product = new Products();
-            adminPage.AddNewProduct(product);
-            Assert.IsTrue(adminPage.CheckNewProduct(product));
+            var mainPage = loginPage.EnterWithoutLogin();
+            mainPage.AddProductToCart(3);
+            Assert.IsTrue(mainPage.DeleteProductsFromCart());
         }
     }
 }

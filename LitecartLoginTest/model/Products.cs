@@ -36,10 +36,10 @@ namespace LitecartLoginTest
         public string PriceInclUSD { get; set; } = "11";
         public string PriceInclEUR { get; set; } = "12";
 
+
         public Products()
         {
 
         }
-
     }
 }

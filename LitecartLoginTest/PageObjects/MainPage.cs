@@ -7,6 +7,10 @@
         private readonly By liProductItem = By.XPath("//li[contains(@class,'product')]");
         //private readonly By sticker = By.XPath(".//a[@title='Red Duck'][@class='link']");
         private readonly By sticker = By.XPath(".//div[contains(@class,'sticker')]");
+        private readonly By stickerGreenDuck = By.XPath("//div[@id='box-most-popular']//img[@alt='Green Duck']");
+        private readonly By stickerRedDuck = By.XPath("//div[@id='box-most-popular']//img[@alt='Red Duck']");
+        private readonly By stickerPurpleDuck = By.XPath("//div[@id='box-most-popular']//img[@alt='Purple Duck']");
+
 
         public MainPage(IWebDriver driver) : base(driver)
         {
@@ -222,6 +226,12 @@
             driver.Navigate().GoToUrl(@"http://localhost/litecart/en/");
         }
 
+        public void GoToCart()
+        {
+            driver.Navigate().GoToUrl(@"http://localhost/litecart/en/checkout");
+        }
+
+
         public void GoToCreateAccountPage()
         {
             var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
@@ -250,6 +260,22 @@
             webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("(//a[text()='Logout'])[1]")));
         }
 
+
+        public void SelectCountry()
+        {
+            var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//span[contains(@class,'select2')][@dir='ltr']"))).Click();
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//li[@role='treeitem'][text()='United States']"))).Click();
+        }
+
+        public void SelectZone()
+        {
+            var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//select[@name='zone_code']"))).Click();
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//option[text()='Florida']"))).Click();
+        }
+
+
         public void AddNewCustomer(Customers customer)
         {
             GoToCreateAccountPage();
@@ -277,10 +303,12 @@
             driver.FindElement(By.Name("city")).Click();
             driver.FindElement(By.Name("city")).Clear();
             driver.FindElement(By.Name("city")).SendKeys(customer.City);
-            SelectElement country = new SelectElement(driver.FindElement(By.XPath("//select[@name='country_code']")));
-            country.SelectByText(customer.Country);
-            SelectElement zone = new SelectElement(driver.FindElement(By.XPath("//select[@name='zone_code']")));
-            zone.SelectByText(customer.Zone);
+            SelectCountry();
+            SelectZone();
+            //SelectElement country = new SelectElement(driver.FindElement(By.XPath("//select[@name='country_code']")));
+            //country.SelectByText(customer.Country);
+            //SelectElement zone = new SelectElement(driver.FindElement(By.XPath("//select[@name='zone_code']")));
+            //zone.SelectByText(customer.Zone);
             driver.FindElement(By.Name("email")).Click();
             driver.FindElement(By.Name("email")).Clear();
             driver.FindElement(By.Name("email")).SendKeys(customer.Email);
@@ -295,6 +323,177 @@
             driver.FindElement(By.Name("confirmed_password")).SendKeys(customer.Password);
             driver.FindElement(By.Name("create_account")).Click();
         }
+        //public bool AddProductToCart(Products product)
+        //{
+        //    bool result = false;
+        //    GoToMainPage();
+        //    var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+        //    webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[@id='box-most-popular']//img[@alt='"+product.Name+"']"))).Click();
+        //    webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[text()='"+product.Name+"']")));
+        //    string ItemsCount1 = webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//span[@class='quantity']"))).Text;
+        //    webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//button[@value='Add To Cart']"))).Click();
+        //    string ItemsCount2 = webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//span[@class='quantity']"))).Text;
+        //    GoToMainPage();
 
+        //    if (Int32.Parse(ItemsCount1) < Int32.Parse(ItemsCount2))
+        //    {
+        //        result = true;
+        //    }
+        //    else 
+        //    {
+        //        result = false;
+        //    }
+        //    return result;
+        //}
+
+        public bool AddProductToCart(int countOfProducts)
+        {
+            int j = 0;
+            bool result = false;
+
+            try
+
+            {
+                for (int i = 1; i <= countOfProducts; i++)
+                {
+                    GoToMainPage();
+                    var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+                    webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("(//div[@id='box-most-popular']//div[@class='image-wrapper'])[1]"))).Click();
+                    webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1")));
+                    IWebElement el = driver.FindElement(By.XPath("//span[@class='quantity']"));
+
+                    if (driver.FindElements(By.XPath("//select[@name='options[Size]']")).Count > 0)
+                    {
+                        SelectElement select = new SelectElement(driver.FindElement(By.XPath("//select[@name='options[Size]']")));
+                        select.SelectByIndex(1);
+                    }
+
+                    string ItemsCount1 = webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//span[@class='quantity']"))).Text;
+                    webDriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//button[@value='Add To Cart']"))).Click();
+                    if (webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//span[@class='quantity'][text()='" + (Int32.Parse(ItemsCount1) + 1) + "']"))) == null)
+                    {
+                        j++;
+                    }
+                }
+            }
+            catch 
+            {
+                result = false;
+            }
+
+            if (j > 0)
+            {
+                result = false;
+            }
+            return result;
+        }
+
+
+
+        public bool DeleteProductsFromCart()
+        {
+            int j = 0;
+            bool result = false;
+
+            try
+            {
+                    GoToCart();
+                    var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+                    int count = driver.FindElements(By.XPath("//td[@class='item']")).Count;
+                    if (count > 0)
+                    {
+                        for (int k=0; k < count; k++)
+                        {
+                            string productName = driver.FindElement(By.XPath("(//td[@class='item'])[1]")).Text;
+                            IWebElement el = driver.FindElement(By.XPath("//td[@class='item'][text()='"+productName+"']"));
+                            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//strong[text()='" + productName + "']//ancestor::p//following-sibling::p//button[@value='Remove']"))).Click();
+                            webDriverWait.Until(ExpectedConditions.StalenessOf(el));
+                        
+                        if (IsElementNotPresent(By.XPath("//td[@class='item'][text()='" + productName + "']")) == false)
+                            {
+                                j++;
+                            }
+                        }
+
+                    if (j == 0)
+                    {
+                        result = true;
+                    }
+                }
+            }
+            catch
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+
+        //public bool DeleteProductsFromCart(int countOfProducts)
+        //{
+        //    int j = 0;
+        //    bool result = false;
+
+        //    try
+        //    {
+        //        for (int i = 1; i <= countOfProducts; i++)
+        //        {
+        //            GoToCart();
+        //            var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+
+        //            if (driver.FindElements(By.XPath("//td[@class='item']")).Count > 0)
+        //            {
+        //                int count1 = driver.FindElements(By.XPath("//td[@class='item']")).Count;
+        //                webDriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//button[@name='remove_cart_item']"))).Click();
+        //                int count2 = driver.FindElements(By.XPath("//td[@class='item']")).Count;
+
+        //                if (count2 > count1)
+        //                {
+        //                    j++;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        result = false;
+        //    }
+
+        //    if (j > 0)
+        //    {
+        //        result = false;
+        //    }
+        //    return result;
+        //}
+
+
+
+        //public bool DeleteProductFromCart(Products product)
+        //{
+        //    bool result = false;
+        //    GoToCart();
+        //    var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+        //    //IWebElement productRow= driver.FindElement(By.XPath("//td[@class='item'][text()='"+product.Name+"']"));
+        //    webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//strong[text()='"+product.Name+"']//ancestor::p//following-sibling::p[3]//button"))).Click();
+        //    if (IsElementNotPresent(By.XPath("//td[@class='item'][text()='" + product.Name + "']")))
+        //    {
+        //        result = true;
+        //    }
+
+        //    return result;
+        //}
+        private bool IsElementNotPresent(By locator)
+        {
+            try
+            {
+                driver.Manage().Timeouts().ImplicitWait=TimeSpan.FromSeconds(2);
+                return driver.FindElements(locator).Count() == 0;    
+            }
+            finally
+            {
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            }
+        }
     }
 }
