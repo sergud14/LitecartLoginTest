@@ -75,5 +75,14 @@ namespace LitecartLoginTest
             mainPage.AddProductToCart(3);
             Assert.IsTrue(mainPage.DeleteProductsFromCart());
         }
+
+        [Test, Order(9)]
+        public void CheckWindowsOpening()
+        {
+            var loginPage = new LoginPage(driver);
+            var adminPage = loginPage.OpenAdminPage("admin", "admin");
+            Assert.IsTrue(adminPage.OpenExternalLinks());
+        }
+
     }
 }

@@ -232,6 +232,13 @@
             webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[text()=' Countries']")));
         }
 
+        public void GoToCountryCreationPage()
+        {
+            var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[@class='button']"))).Click();
+            webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[text()=' Add New Country']")));
+        }
+
         public void GoToCatalogTab()
         {
             var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
@@ -331,12 +338,66 @@
             driver.FindElement(By.CssSelector("body")).Click();
         }
 
-    //    public void SetDatepicker(IWebDriver driver, string cssSelector, string date)
-    //    {
-    ////        new WebDriverWait(driver, TimeSpan.FromSeconds(30)).Until<bool>(
-    ////d => driver.FindElement(By.CssSelector(cssSelector)).Displayed);
-    ////        (driver as IJavaScriptExecutor).ExecuteScript(
-    ////            String.Format("$('{0}').datepicker('setDate', '{1}')", cssSelector, date));
-    //    }
+        //    public void SetDatepicker(IWebDriver driver, string cssSelector, string date)
+        //    {
+        ////        new WebDriverWait(driver, TimeSpan.FromSeconds(30)).Until<bool>(
+        ////d => driver.FindElement(By.CssSelector(cssSelector)).Displayed);
+        ////        (driver as IJavaScriptExecutor).ExecuteScript(
+        ////            String.Format("$('{0}').datepicker('setDate', '{1}')", cssSelector, date));
+        //    }
+
+
+
+        public bool OpenExternalLinks()
+        {
+            bool result = false;
+            GoToCountriesTab();
+            GoToCountryCreationPage();
+            var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+
+            try
+            {
+                var extLinks = driver.FindElements(By.XPath("//i[@class='fa fa-external-link']"));
+                List<By> links = new List<By>();
+
+                for (int i = 0; i < extLinks.Count; i++)
+                {
+                    links.Add(By.XPath("(//i[@class='fa fa-external-link'])["+(i+1)+"]"));
+                }
+
+                int j = 0;
+                foreach (By by in links)
+                {
+                    string mainWindow = driver.CurrentWindowHandle;
+                    webDriverWait.Until(ExpectedConditions.ElementIsVisible(by)).Click();
+                    webDriverWait.Until(wd => wd.WindowHandles.Count == 2);
+
+                    foreach (string window in driver.WindowHandles)
+                    {
+                        if (mainWindow != window)
+                        {
+                            webDriverWait.Until(d => d.SwitchTo().Window(window));
+                            j++;
+                            break;
+                        }
+                    }
+                    driver.Close();
+                    driver.SwitchTo().Window(mainWindow);
+                }
+
+                if (j == extLinks.Count)
+                {
+                    result = true;
+                }
+            }
+            catch
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+
     }
 }
