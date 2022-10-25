@@ -82,6 +82,36 @@
             return result;
         }
 
+        public void CheckProductsInCatalog()
+        {
+            try
+            {
+                var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+                driver.Navigate().GoToUrl(@"http://localhost/litecart/admin/?app=catalog&doc=catalog&category_id=1");
+                webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[text()=' Catalog']")));
+                int count = driver.FindElements(By.XPath("//tr[@class='row']//td//img/following-sibling::a")).Count();
+                if (count > 0)
+                {
+                    ICollection<IWebElement> ss= driver.FindElements(By.XPath("//tr[@class='row']//td//img/following-sibling::a"));
+                    for(int i=0;i<count;i++)
+                    {
+                        webDriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("(//tr[@class='row']//td//img/following-sibling::a)["+(i+1)+"]"))).Click();
+                        foreach (LogEntry l in driver.Manage().Logs.GetLog(LogType.Browser))
+                            {
+                                Console.WriteLine(l);
+                            }
+                        webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[contains(text(),'Edit')]")));
+                        driver.Navigate().GoToUrl(@"http://localhost/litecart/admin/?app=catalog&doc=catalog&category_id=1");
+                        webDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[text()=' Catalog']")));
+                    }
+                }
+            }
+            catch
+            {
+               
+            }
+        }
+
         public bool CheckNewProduct(Products product)
         {
             bool result = false;

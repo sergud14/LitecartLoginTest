@@ -84,5 +84,13 @@ namespace LitecartLoginTest
             Assert.IsTrue(adminPage.OpenExternalLinks());
         }
 
+
+        [Test, Order(10)]
+        public void CheckBrowserLogs()
+        {
+            var loginPage = new LoginPage(driver);
+            var adminPage = loginPage.OpenAdminPage("admin", "admin");
+            adminPage.CheckProductsInCatalog();
+        }
     }
 }
